@@ -1,7 +1,7 @@
 head: 
-   favicon: "site.assets\images\touch\chrome-touch-icon-192x192" #  the favicon
-   high_res_favicon: "site.assets\images\touch\chrome-touch-icon-192x192" #  the favicon using high quality format
-   apple_touch_icon: "site.assets\images\touch\chrome-touch-icon-192x192" # the iOS Home button icon
+   favicon: "https://ooo.0o0.ooo/2017/05/27/59294212bc16e.png" #  the favicon
+   high_res_favicon: "https://ooo.0o0.ooo/2017/06/08/5939484dc618e.png" #  the favicon using high quality format
+   apple_touch_icon: "https://ooo.0o0.ooo/2017/06/08/5939484dc618e.png" # the iOS Home button icon
    keywords: "blog jekyll mdui theme" #  the site keywords
 
 uiux:
