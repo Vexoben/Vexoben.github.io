@@ -8,8 +8,6 @@ img: https://vexoben.github.io/assets/images/Blog/SDOI2010地精部落-HDU4055.j
 author: Vexoben
 ---
 
-## SDOI2010地精部落
-
 题目链接：https://www.lydsy.com/JudgeOnline/problem.php?id=1925
 
 看到全排列第一反应是状压DP，但是数据范围显然不允许。感觉到全排列个数的增加对答案的贡献有一些共性但是不知道怎么利用就看了一发题解。
@@ -67,8 +65,6 @@ int main()
 ```
 
 ----------------------------
-
-## HDU4055 Number String
 
 题目链接：http://acm.hdu.edu.cn/showproblem.php?pid=4055
 
