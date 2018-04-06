@@ -1,7 +1,7 @@
 head: 
-   favicon: "site.assets\images\touch\chrome-touch-icon-192x192" #  the favicon
-   high_res_favicon: "site.assets\images\touch\chrome-touch-icon-192x192" #  the favicon using high quality format
-   apple_touch_icon: "site.assets\images\touch\chrome-touch-icon-192x192" # the iOS Home button icon
+   favicon: "site.assets\images\touch\chrome-touch-icon-192x192.jpg" #  the favicon
+   high_res_favicon: "site.assets\images\touch\chrome-touch-icon-192x192.jpg" #  the favicon using high quality format
+   apple_touch_icon: "site.assets\images\touch\chrome-touch-icon-192x192.jpg" # the iOS Home button icon
    keywords: "blog jekyll mdui theme" #  the site keywords
 
 uiux:
@@ -14,7 +14,7 @@ background:
    purecolor: "#eeeeee" # the background color
 
 img: 
-   avatar: "site.assets\images\touch\chrome-touch-icon-192x192" # your avatar
+   avatar: "site.assets\images\touch\chrome-touch-icon-192x192.jpg" # your avatar
 
 card: 
    card_shadow: 1 # card shadow (0-24), 0 is not displayed
