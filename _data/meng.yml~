@@ -21,7 +21,7 @@ header: # Meng header color + theme-color
   switch: true
 
 background: # Meng background
-  switch: false
+  switch: true
   background_img: "Vexoben.github.io/assets/images/banner.jpg"
   transparent_header: true
   transparent_footer: false
