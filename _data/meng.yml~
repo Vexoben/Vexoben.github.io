@@ -24,7 +24,7 @@ background: # Meng background
   switch: true
   background_img: "Vexoben.github.io/assets/images/banner.jpg"
   transparent_header: true
-  transparent_footer: true
+  transparent_footer: false
   text_color: '#000'
 
 card: # Meng card
@@ -33,7 +33,7 @@ card: # Meng card
   card_img_opacity: '0.8'
 
 live2d: # live2d ,see https://github.com/EYHN/hexo-helper-live2d
-  switch: true
+  switch: false
   model: "/assets/live2d/koharu/koharu.model.json" # model.json path
   drag: true # is drag ?
   in_mobile: false
@@ -62,7 +62,7 @@ music_player:
       pic: 'http://img4.kuwo.cn/star/starheads/240/72/35/3484765923.jpg'
 
 head_card:
-  switch: false
+  switch: true
   left_img: "https://ooo.0o0.ooo/2017/06/19/5947b272d418b.jpg"
   left_text: "『 · 如果真爱有颜色 』"
   right_img: "https://ooo.0o0.ooo/2017/06/08/5939484dc618e.png"
