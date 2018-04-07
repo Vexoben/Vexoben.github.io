@@ -25,7 +25,7 @@ h1.mdui-card-primary-title{
     width: 100%;
     border-spacing: 0;
     border-collapse: separate;
-    background-color: #ff4081;
+    background-color: #fff;
     border: 1px solid rgba(0,0,0,.12);
     border-top: none;
 }
