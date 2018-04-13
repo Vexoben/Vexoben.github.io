@@ -60,15 +60,22 @@ music_player:
       author: 'TheFatRat'
       url: 'http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n2/44/7/1205252665.mp3'
       pic: 'http://img4.kuwo.cn/star/starheads/240/72/35/3484765923.jpg'
+    - title: 'Scarborough Fair'
+      author: 'Sarch Brightman'
+      url: 'https://vexoben.github.io/music/Scarborough Fair.mp3'
+      pic: 'https://vexoben.github.io/music/Scarborough Fair.jpg
     - title: 'Five Hundred Miles'
       author: 'Justin Timberlake'
       url: 'https://vexoben.github.io/music/Five-Hundred-Miles.mp3'
       pic: 'https://vexoben.github.io/music/Five-Hundred-Miles.jpg'
-    - title: 'Scarborough Fair'
-      author: 'Sarch Brightman'
-      url: 'https://vexoben.github.io/music/Scarborough Fair.mp3'
-      pic: 'https://vexoben.github.io/music/Scarborough Fair.jpg'
-
+    - title: 'Trouble Is A Friend'
+      author: 'Lenka'
+      url: 'https://vexoben.github.io/music/Trouble Is A Friend.mp3'
+      pic: 'https://vexoben.github.io/music/Trouble Is A Friend.jpg'
+    - title: '采茶纪'
+      author: '双笙'
+      url: 'https://vexoben.github.io/music/采茶纪.mp3'
+      pic: 'https://vexoben.github.io/music/采茶纪.jpg'
 
 head_card:
   switch: false
