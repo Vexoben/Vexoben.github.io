@@ -66,8 +66,8 @@ music_player:
       pic: 'https://vexoben.github.io/music/Five-Hundred-Miles.jpg'
     - title: 'Scarborough Fair'
       author: 'Sarch Brightman'
-      url: 'vexoben.github.io/music/Scarborough Fair.wma'
-      pic: 'vexoben.github.io/music/Scarborough Fair.jpg'
+      url: 'https://vexoben.github.io/music/Scarborough Fair.wma'
+      pic: 'https://vexoben.github.io/music/Scarborough Fair.jpg'
 
 
 head_card:
