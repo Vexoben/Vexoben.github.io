@@ -84,6 +84,18 @@ music_player:
       author: '薛之谦'
       url: 'https://vexoben.github.io/music/丑八怪.mp3'
       pic: 'https://vexoben.github.io/music/丑八怪.jpg'
+    - title: '东京不太热'
+      author: '封茗囧菌'
+      url: 'https://vexoben.github.io/music/东京不太热.mp3'
+      pic: 'https://vexoben.github.io/music/东京不太热.jpg'
+    - title: '风缘'
+      author: '双笙'
+      url: 'https://vexoben.github.io/music/风缘.mp3'
+      pic: 'https://vexoben.github.io/music/风缘.jpg'
+    - title: '浮生未歇'
+      author: '双笙'
+      url: 'https://vexoben.github.io/music/浮生未歇.mp3'
+      pic: 'https://vexoben.github.io/music/浮生未歇.jpg'
 
 head_card:
   switch: false
