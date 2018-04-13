@@ -60,9 +60,9 @@ music_player:
       author: 'TheFatRat'
       url: 'http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n2/44/7/1205252665.mp3'
       pic: 'http://img4.kuwo.cn/star/starheads/240/72/35/3484765923.jpg'
-    - title: 'Shape of You'
-      author: 'Alex Goot'
-      url: 'vexoben.github.io/music/Alex-Goot,Andie-Case-Shape-of-You.mp3'
+    - title: '月出'
+      author: '双笙'
+      url: 'https://vexoben.github.io/music/%E5%8F%8C%E7%AC%99%20-%20%E6%9C%88%E5%87%BA.mp3'
       pic: 'vexoben.github.io/music/Alex-Goot,Andie-Case-Shape-of-You.jpg'
 
 
