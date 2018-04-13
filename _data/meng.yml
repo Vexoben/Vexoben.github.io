@@ -96,6 +96,22 @@ music_player:
       author: '双笙'
       url: 'https://vexoben.github.io/music/浮生未歇.mp3'
       pic: 'https://vexoben.github.io/music/浮生未歇.jpg'
+    - title: '认真的雪'
+      author: '薛之谦'
+      url: 'https://vexoben.github.io/music/认真的雪.mp3'
+      pic: 'https://vexoben.github.io/music/认真的雪.jpg'
+    - title: '可念不可说'
+      author: '崔子格'
+      url: 'https://vexoben.github.io/music/可念不可说.mp3'
+      pic: 'https://vexoben.github.io/music/可念不可说.jpg'
+    - title: '其实'
+      author: '薛之谦'
+      url: 'https://vexoben.github.io/music/其实.mp3'
+      pic: 'https://vexoben.github.io/music/其实.jpg'
+    - title: '奇妙能力歌'
+      author: '陈粒'
+      url: 'https://vexoben.github.io/music/奇妙能力歌.mp3'
+      pic: 'https://vexoben.github.io/music/奇妙能力歌.jpg'
 
 head_card:
   switch: false
