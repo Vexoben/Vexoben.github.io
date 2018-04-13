@@ -72,10 +72,18 @@ music_player:
       author: 'Lenka'
       url: 'https://vexoben.github.io/music/Trouble Is A Friend.mp3'
       pic: 'https://vexoben.github.io/music/Trouble Is A Friend.jpg'
-    - title: '采茶纪'
-      author: '双笙'
-      url: 'https://vexoben.github.io/music/采茶纪.mp3'
-      pic: 'https://vexoben.github.io/music/采茶纪.jpg'
+    - title: '曹操'
+      author: '林俊杰'
+      url: 'https://vexoben.github.io/music/曹操.mp3'
+      pic: 'https://vexoben.github.io/music/曹操.jpg'
+    - title: '初学者'
+      author: '薛之谦'
+      url: 'https://vexoben.github.io/music/初学者.mp3'
+      pic: 'https://vexoben.github.io/music/初学者.jpg'
+    - title: '丑八怪'
+      author: '薛之谦'
+      url: 'https://vexoben.github.io/music/丑八怪.mp3'
+      pic: 'https://vexoben.github.io/music/丑八怪.jpg'
 
 head_card:
   switch: false
