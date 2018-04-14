@@ -12,15 +12,17 @@ author: Vexoben
 
 ## **题解**
 
-![][2]  
+![][2]
 
-![][3]  
+![][3]
 
-![][4]  
+![][4]
 
-![][5]  
+![][5]
 
-![][6]  
+![][6]
+
+![][7]
 
 ```cpp
 #pragma GCC optimize(2)
@@ -145,3 +147,4 @@ int main() {
   [4]: https://vexoben.github.io/assets/images/Blog/2017-12-22-BZOJ1002-%5BFJOI2007%5D%E8%BD%AE%E7%8A%B6%E7%97%85%E6%AF%92%284%29.JPG
   [5]: https://vexoben.github.io/assets/images/Blog/2017-12-22-BZOJ1002-%5BFJOI2007%5D%E8%BD%AE%E7%8A%B6%E7%97%85%E6%AF%92%285%29.JPG
   [6]: https://vexoben.github.io/assets/images/Blog/2017-12-22-BZOJ1002-%5BFJOI2007%5D%E8%BD%AE%E7%8A%B6%E7%97%85%E6%AF%92%286%29.JPG
+  [7]: https://vexoben.github.io/assets/images/Blog/2017-12-22-BZOJ1002-%5BFJOI2007%5D%E8%BD%AE%E7%8A%B6%E7%97%85%E6%AF%92%287%29.JPG
