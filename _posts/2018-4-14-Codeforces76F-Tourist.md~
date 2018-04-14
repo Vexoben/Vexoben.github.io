@@ -10,19 +10,19 @@ author: Vexoben
 
 题目链接：[http://codeforces.com/problemset/problem/76/F][4]
 
-## **题意**  
-tourist站在x轴上。有n个事件，第i个时间于Ti的时间出现于Xi的位置。tourist每个单位时间最多移动V个单位，问：  
-1、若tourist从0出发，可以看到的最多事件。  
-2、若tourist从任意点出发，可以看到的最多事件。  
-n≤1e5, Xi≤2e8, Ti≤2e6  
+## **题意**
+tourist站在x轴上。有n个事件，第i个时间于Ti的时间出现于Xi的位置。tourist每个单位时间最多移动V个单位，问：
+1、若tourist从0出发，可以看到的最多事件。
+2、若tourist从任意点出发，可以看到的最多事件。
+n≤1e5, Xi≤2e8, Ti≤2e6
 
 ## **题解**
 
-考虑事件i,j。能看完事件i再去看j的充要条件是:  
-![][1]  
+考虑事件i,j。能看完事件i再去看j的充要条件是:
+![][1]
 
 去绝对值得：
-![][2]  
+![][2]
 
 不妨令：
 
