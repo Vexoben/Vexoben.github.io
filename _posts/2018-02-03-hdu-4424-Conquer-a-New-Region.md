@@ -3,7 +3,7 @@ layout: post
 title: HDU 4424 Conquer a New Region
 date: 2018-02-03 18:38:08 +0800
 categories: training
-tags: 
+tags: 数据结构
 img: https://vexoben.github.io/assets/images/Blog/HDU-4424-Conquer-a-New-Region.JPG
 ---
 
