@@ -7,9 +7,9 @@ tags:
 img: https://vexoben.github.io/assets/images/Blog/HDU-4424-Conquer-a-New-Region.JPG
 ---
 
-## **题意**  
+## ** 题意 **  
 给定一棵带边权的树，任选一个起点，定义其余所有的点权为起点到该点路径中最短边的长度，最大化点权和。 
-## **题解**
+## ** 题解 **
 点权由最短边决定，所以考虑将边从大到小排序。每加入一条边就是合并两个连通块。设这两个连通块分别为A、B，则合并后的连通块C价值为：max(val[A]+length*size[B],val[B]+length*size[A])。用并查集维护一下即可。
 
 ```cpp
