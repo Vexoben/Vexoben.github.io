@@ -7,6 +7,8 @@ tags: 搜索 图论
 img: https://vexoben.github.io/assets/images/Blog/POJ-1475-Pushing-Boxes.JPG
 ---
 
+题目链接：[http://poj.org/problem?id=1475][1]
+
 ## **题意**
 给你一张地图，把箱子推到目的地，要求在推箱子次数最少的前提下最小化走的路程。输出方案。
 
@@ -156,3 +158,5 @@ int main() {
 	return 0;
 }
 ```
+
+[1]:http://poj.org/problem?id=1475

@@ -7,6 +7,8 @@ tags: 数据结构
 img: https://vexoben.github.io/assets/images/Blog/HDU-4424-Conquer-a-New-Region.JPG
 ---
 
+题目链接：[http://acm.hdu.edu.cn/showproblem.php?pid=4424][1]
+
 ## **题意**  
 给定一棵带边权的树，任选一个起点，定义其余所有的点权为起点到该点路径中最短边的长度，最大化点权和。 
 ## **题解**
@@ -59,3 +61,5 @@ signed main() {
 	return 0;
 }
 ```
+
+[1]: http://acm.hdu.edu.cn/showproblem.php?pid=4424
