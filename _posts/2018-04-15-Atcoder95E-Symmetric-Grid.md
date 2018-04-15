@@ -15,6 +15,8 @@ img: https://vexoben.github.io/assets/images/Blog/2018-04-15-Atcoder95E-Symmetri
 
 给你一个n*m的矩阵，每个格点中有一个小写字母。每次可以交换两行或两列，问是否可以使这个矩阵中心对称。
 
+n,m<=12
+
 ## **题解**
 
 思路是暴枚行的排布方式，然后判列是否能合法交换。
