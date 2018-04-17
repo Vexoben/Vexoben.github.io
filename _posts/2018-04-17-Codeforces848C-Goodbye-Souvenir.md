@@ -7,6 +7,8 @@ tags: 数据结构 cdq分治
 img: https://vexoben.github.io/assets/images/Blog/2018-04-17-Codeforces848C-Goodbye-Souvenir.JPG
 ---
 
+题目链接：[http://codeforces.com/problemset/problem/848/C][1]
+
 ## **题意**
 
 给定一个长为n的序列，m个操作，每个操作形如：
@@ -170,3 +172,5 @@ signed main() {
 	return 0;
 }
 ```
+
+[1]: http://codeforces.com/problemset/problem/848/C
