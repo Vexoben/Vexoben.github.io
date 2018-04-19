@@ -153,7 +153,7 @@ namespace one {
 main(void) {
   int T; for(read(T); T --;) one::main();
 }
-```cpp
+```
 
 
 ## **H. Virtual Participation**
