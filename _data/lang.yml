@@ -54,12 +54,12 @@ en-US:
          image: "Image"
       preview: "Preview"
       download: "Download"
- #  lastupdate: 
- #     one: "This article was last updated"
- #     two: "days ago. Please use caution."
- #  readtime: 
- #     one: "It takes"
- #     two: "minutes to read this article."
+   lastupdate: 
+      one: "This article was last updated"
+      two: "days ago. Please use caution."
+   readtime: 
+      one: "It takes"
+      two: "minutes to read this article."
    page:
       search: "Search"
    post:

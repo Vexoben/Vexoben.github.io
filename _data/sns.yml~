@@ -5,7 +5,7 @@
   url: 
 
 - name: github
-  url: 
+  url: https://github.com
 
 - name: gplus
   url: 
@@ -17,13 +17,13 @@
   url: 
 
 - name: telegram
-  url: 
+  url: https://web.telegram.org
 
 - name: tumblr
   url: 
 
 - name: twitter
-  url: 
+  url: https://twitter.com/
 
 - name: weibo
   url: 
