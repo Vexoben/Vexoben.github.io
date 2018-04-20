@@ -1,2 +1,0 @@
-		url: 'vexoben.github.io/music/Alex-Goot-Andie-Case-Shape-of-You.mp3'
-		pic: 'vexoben.github.io/music/Alex-Goot-Andie-Case-Shape-of-You.jpg'
