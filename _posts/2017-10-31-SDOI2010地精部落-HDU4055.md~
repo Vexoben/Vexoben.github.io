@@ -22,7 +22,7 @@ author: Vexoben
 
 向 f(i,j) 转移的时候，只关心相对大小，于是假设前i个数分别是1-i，将j放在第一个位置后，我们将大于j的所有数-1，这样我们就得到了[1,i-1]这些数可选，且开头要求升序排列，那不就是：  
 
-![此处输入图片的描述][3]
+![][3]
 
 加个前缀和优化O(1)转移就能过了。  
 
@@ -78,9 +78,9 @@ int main()
 
 于是有：  
 
-![此处输入图片的描述][4]
+![][4]
 
-```cpp  
+<pre class="line-numbers"><code class="language-cpp">
 #include<bits/stdc++.h>
 using namespace std;
 const int N=1020;
@@ -124,7 +124,7 @@ int main()
 	  }
 	 return 0;
  }
-```
+</code></pre>
 
 
   [1]: https://vexoben.github.io/assets/images/Blog/SDOI2010%E5%9C%B0%E7%B2%BE%E9%83%A8%E8%90%BD-HDU4055.jpg
