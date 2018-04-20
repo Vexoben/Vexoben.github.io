@@ -32,7 +32,7 @@ sns_share: # SNS Share Switch
    telegram: true
   
 comment:
-  used: "gitment" # disqus,livere,gitment,valine
+  used: "" # disqus,livere,gitment,valine
   # disqus config
   disqus_shortname: "Vexoben" # Your disqus 
   disqus_button: true # disqus load button

@@ -44,9 +44,9 @@ comment:
   livere_data_uid: ''
   # gitment config
   owner: "Vexoben"
-  repo: ""
-  client_id: ""
-  client_secret: ""
+  repo: "https://github.com/Vexoben/Vexoben.github.io"
+  client_id: "e918a6c4d8cc2054f897"
+  client_secret: "fee4cd6c53fdb15a16a9f650b1a323ba6fc675b2"
   #valine config
   valine_notify: true #mail notifier
   valine_verify: true #validation code
