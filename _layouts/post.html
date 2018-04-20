@@ -1,4 +1,4 @@
----
+1---
 layout: default
 ---
     {% if site.data.site.uiux.meng == true %}
@@ -9,6 +9,9 @@ layout: default
             {% endfor %}
     {% endif %}
     {% endif %}
+{% include content/page_content.html %}
+{% include content/component/imgboxed.html %}
+
 <div id="gitmentContainer"></div>
 <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
@@ -23,5 +26,3 @@ var gitment = new Gitment({
 });
 gitment.render('gitmentContainer');
 </script>				 
-{% include content/page_content.html %}
-{% include content/component/imgboxed.html %}
