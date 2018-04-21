@@ -3,7 +3,7 @@ layout: post
 title: 2015 Multi-University Contest 4
 date: 2018-04-19 18:27:22 +0800
 categories: contest
-tags: 脑洞题 模拟 构造
+tags: 脑洞题 模拟 构造 基环树
 img: https://vexoben.github.io/assets/images/Blog/2015-Multi-University-Contest-4.JPG
 ---
 
@@ -152,6 +152,128 @@ namespace one {
 }
 main(void) {
   int T; for(read(T); T --;) one::main();
+}
+```
+
+
+## **C. Question for the Leader**
+
+### **题意**
+
+给定一棵n个节点的基环树，问存在多少个k，使得可以将其分为n/k个联通块，每个联通块中包含k个节点。
+
+n<=100000
+
+### **题解**
+
+对于树，有一个结论：如果可以将这棵树分为大小相同的n/k份，那么子树大小是k的倍数的节点数有n/k个。（根可以任选）
+
+但这是一棵基环树。那我们先把环扣出来，暴力枚举删掉哪条边，然后就可以套用上面的结论了。
+
+直接模拟是O(n^2)的，考虑优化。
+
+先把非环上的点的size算好，然后考虑环上的点。将环上所有的点按序标号，size[i]表示第i个点挂下的子树大小，sum[i]表示前i个点挂下的子树大小和。
+
+当我们将第i个点和第(i-1)个点之间的边断开时，j号点的子树大小为(sum[j]-sum[i])。对于一种约数x，只要(sum[j]%x==sum[i]%x),j号点的子树大小就是x的倍数了。在预处理后可以O(1)统计。
+
+注意要加上非环点的贡献。最终答案应该是所有短边方案中可取约数的并集，复杂度O(n^1.5)
+
+代码挺恶心的……
+
+```cpp
+#include<bits/stdc++.h>
+#define R register
+using namespace std;
+const int N=1e5+10;
+
+int n,m,E,tim;
+int fa[N],fir[N],nex[N<<1],arr[N<<1];
+int c[N],a[N],siz[N],num[N],dfn[N],sum[N],md[150][N],cnt[N],can[N];
+vector<int> vec,cir;
+
+inline void Add_Edge(int x,int y) {
+	nex[++E]=fir[x];
+	fir[x]=E; arr[E]=y;
+}
+
+void Init() {
+	tim=E=0;
+	memset(fir,0,sizeof(int)*(n+5));
+	memset(num,0,sizeof(int)*(n+5));
+	memset(c,0,sizeof(int)*(n+5));
+	memset(dfn,0,sizeof(int)*(n+5));
+	vec.clear(); cir.clear();
+	for (R int i=1;i<=n;i++)
+		if (n%i==0) vec.push_back(i);	
+	for (R int i=1;i<=n;i++) {
+		int x; scanf("%d",&x);
+		Add_Edge(i,x); Add_Edge(x,i);
+	}
+	for (int i=0;i<vec.size();i++)
+		memset(md[i],0,sizeof(int)*(vec[i]+3));
+	memset(can,0,sizeof(int)*(vec.size()+3));
+}
+
+void getcir(int x) {
+	dfn[x]=++tim;
+	for (int i=fir[x];i;i=nex[i]) {
+		if (arr[i]==fa[x]) continue;
+		if (!dfn[arr[i]]) fa[arr[i]]=x,getcir(arr[i]);
+		else if (dfn[arr[i]]>dfn[x]) {
+			int y=arr[i];
+			cir.push_back(x); c[x]=1;
+			do {
+				cir.push_back(y);
+				c[y]=1;
+				y=fa[y];
+			}while (x!=y);
+		}
+	}
+}
+
+void dfs(int x,int fa) {
+	siz[x]=1;
+	for (int i=fir[x];i;i=nex[i]) {
+		if (!c[arr[i]]&&arr[i]!=fa) {
+			dfs(arr[i],x); siz[x]+=siz[arr[i]];
+		}
+	}
+}
+
+void check(int x) {
+	int v=vec.size();
+	for (int i=0;i<v;i++) {
+		cnt[i]=md[i][(sum[x]+vec[i])%vec[i]]+num[i];
+		if (cnt[i]*vec[i]==n) can[i]=1;
+	}
+}
+
+void Solve() {
+	Init();
+	getcir(1);
+	for (int i=1;i<=n;i++) 
+		if (c[i]) dfs(i,0);
+	for (R int i=1;i<=n;i++)
+		if (!c[i]) {
+			int v=vec.size();
+			for (R int j=0;j<v;j++) {
+				if (siz[i]%vec[j]==0) num[j]++;
+			}
+		}
+	int v=vec.size();
+	for (int i=0;i<cir.size();i++) {
+		sum[i]=(i)?sum[i-1]+siz[cir[i]]:siz[cir[i]];
+		for (int j=0;j<v;j++) md[j][sum[i]%vec[j]]++;
+	}
+	for (int i=0;i<cir.size();i++) check(i);
+	int ans=0;
+	for (int i=0;i<vec.size();i++) ans+=can[i];
+	printf("%d\n",ans);
+}
+
+int main() {
+	while (cin>>n) Solve();
+	return 0;
 }
 ```
 
