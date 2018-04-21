@@ -466,6 +466,115 @@ int main() {
 ```
 
 
+## **L. ZZX and Permutations**
+
+### **题意**
+
+给定一个长为n的全排列，用括号将它分为若干个区间，使变换后全排列的字典序最大。
+
+例如全排列:1 4 5 6 3 2,如果划分为(1,4,5,6)(3,2),表示将1写到6的位置，6写到5的位置，5写到4的位置……
+
+### **题解**
+
+从小到大考虑每个数的位置被哪个数所占据。这有三种情况：
+
+1、被自己占据；
+
+2、被左边可取范围内最大的数占据；
+
+3、被右边第一个数占据。
+
+对于前两种情况，我们可以直接确定一个括号区间。直接将它们写进答案后删除这个区间。注意左边最大数和这个数之前不能有被删除过的区间。
+
+对于第三种情况，我们只能确定一个括号区间的左括号l。右括号的选择又有两种情况：
+
+1、在后面考虑一个数x的时将[l,x]归为一个区间；
+
+2、考虑(l+1)时确定右括号。
+
+那么只需要让(l+1)不能为左括号就可以了。
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+const int N=1e5+10;
+
+int n,m,T;
+int a[N],id[N],mx[N<<2],num[N<<2],ans[N],used[N];
+set<int> Set;
+
+void Init() {
+	scanf("%d",&n);
+	memset(a,0,sizeof(int)*(n+3));
+	memset(id,0,sizeof(int)*(n+3));
+	for (int i=1;i<=n;i++) scanf("%d",&a[i]),id[a[i]]=i;
+	Set.clear(); Set.insert(0);
+	memset(used,0,sizeof(int)*(n+3));
+}
+
+void Pushup(int x) {
+	if (mx[x<<1]<mx[x<<1|1]) mx[x]=mx[x<<1|1],num[x]=num[x<<1|1];
+	else mx[x]=mx[x<<1],num[x]=num[x<<1];
+}
+
+void Build(int x,int l,int r) {
+	if (l==r) return (void) (num[x]=l,mx[x]=a[l]);
+	int mid=(l+r)>>1;
+	Build(x<<1,l,mid); Build(x<<1|1,mid+1,r);
+	Pushup(x);
+}
+
+int Query(int x,int l,int r,int lt,int rt) {
+	if (rt<l||lt>r) return 0;
+	if (lt<=l&&r<=rt) return num[x];
+	int mid=(l+r)>>1;
+	int u=Query(x<<1,l,mid,lt,rt),v=Query(x<<1|1,mid+1,r,lt,rt);
+	return (a[u]<a[v])?v:u;
+}
+
+void Updata(int x,int l,int r,int pos) {
+	if (l==r) return (void) (num[x]=mx[x]=0);
+	int mid=(l+r)>>1;
+	if (pos<=mid) Updata(x<<1,l,mid,pos);
+	else Updata(x<<1|1,mid+1,r,pos);
+	Pushup(x);
+}
+
+void Solve() {
+	Init();
+	Build(1,1,n);
+	for (int i=1;i<=n;i++) {
+		if (used[id[i]]) continue;
+		int x=id[i];
+		set<int>::iterator it=Set.lower_bound(x);
+		int l=Query(1,1,n,*(--it)+1,x),r=x;
+		if (a[l]<a[r+1]&&!used[r+1]) {
+			ans[i]=a[r+1];
+			Updata(1,1,n,r+1);
+		}
+		else {
+			for (int i=l;i<=r;i++) {
+				ans[a[i]]=a[(i==r)?l:i+1];
+				Set.insert(i);
+				Updata(1,1,n,i);
+				used[i]=1;
+			}
+		}
+	}
+	for (int i=1;i<=n;i++) {
+		printf("%d",ans[i]);
+		putchar((i!=n)?' ':'\n');
+	}
+	memset(num,0,sizeof(int)*(2*n+10));
+	memset(mx,0,sizeof(int)*(2*n+10));
+}
+
+int main() {
+	scanf("%d",&T);
+	while (T--) Solve();
+	return 0;
+}
+```
 
 [1]: http://acm.hdu.edu.cn/showproblem.php?pid=5327
 [2]: https://vexoben.github.io/assets/images/Blog/2015-Multi-University-Contest-4(2).JPG
