@@ -359,6 +359,66 @@ int main() {
 ```
 
 
+## **F. Test for Rikka**
+
+### **题意**
+
+构造一个n*n的矩阵A，令B=A^m,使得B[1][n]=k，读入k，n和m可以任选。
+
+k<=1e18,n<=30,m<=30。
+
+### **题解**
+
+神题……
+
+显然如果将这个矩阵看做图的邻接矩阵，就是点1走m步到点n的方案数为k。
+
+一开始想的是将图分层，低层向高层连边，终点加自环，这样可以控制步数，但是方案数只能到1e9。
+
+要控制步数，要么让图变成一张DAG，要么就来一张完全图！
+
+这样构造图：从点1出发，连向一个大小为C的团。团后面接一条长为d的链，链的底端是点n。
+
+考虑团中的一个点x，走了i步后到达点x的方案数显然是**C^(i-1)**，那么如果将x向链上距点n距离为t的点连边，就会对答案产生**C^(m-t-1)**的贡献。
+
+不妨取C=9,d=20,m=21，易知可以构造出m<=1e18的所有图。
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+long long k,pw[22];
+int a[35][35];
+
+void Solve() {
+	memset(a,0,sizeof(a));
+	for (int i=2;i<=10;i++) a[1][i]=1;
+	for (int i=2;i<=10;i++)
+		for (int j=2;j<=10;j++) a[i][j]=1;
+	for (int i=11;i<=29;i++) a[i][i+1]=1;
+	scanf("%lld",&k);
+	int now=19;
+	while (k) {
+		while (k<pw[now]&&now) now--;
+		for (int i=2;k>=pw[now];k-=pw[now],i++) a[i][now+11]=1;
+	}
+	puts("30 21");
+	for (int i=1;i<=30;i++) {
+		for (int j=1;j<=30;j++) printf("%d",a[i][j]);
+		putchar('\n');
+	}
+}
+
+int main() {  
+	pw[0]=1;
+	for (int i=1;i<=19;i++) pw[i]=pw[i-1]*9;
+	int T; scanf("%d",&T);
+	while (T--) Solve();
+	return 0;
+}
+```
+
+
 ## **H. Virtual Participation**
 
 ### **题意**
