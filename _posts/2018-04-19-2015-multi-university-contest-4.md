@@ -278,6 +278,87 @@ int main() {
 ```
 
 
+## **D. Route Statistics**
+
+### **题意**
+
+给定m维坐标中的n个点，坐标范围是{0,1,2}，对于每个k∈[0,2m]，求出有多少个点对的曼哈顿距离是k。
+
+m<=11,n<=300000
+
+### **题解**
+
+神奇的状压DP……
+
+我们要计算的是到每个串距离为x的串有多少个。用f[i][s][j]表示与串s的前i位都相同的那些串，到s距离为j的个数。
+
+初识状态f[m][s][0]=串s出现次数。只要转移出f[0][s][x]就可以了。
+
+假设串s第i位是c，那么就有：
+
+![][6]
+
+最后统计答案的时候注意特判x=0
+
+复杂度O(m^2*3^m)
+
+```cpp
+#include<bits/stdc++.h>
+#define LL long long
+using namespace std;
+const int N=300005;
+
+LL ans[30];
+int n,m,T,pw[20],cnt[N],f[2][N][30];
+char s[30];
+
+void Solve() {
+	scanf("%d%d",&n,&m);
+	memset(cnt,0,sizeof(int)*(pw[m]+3));
+	for (int i=1;i<=n;i++) {
+		scanf("%s",s+1);
+		int x=0;
+		for (int i=1;i<=m;i++) x=x*3+s[i]-'0';
+		cnt[x]++;
+	}
+	for (int i=0;i<m;i++) 
+		for (int j=0;j<pw[m];j++)
+			memset(f[0][j],0,sizeof(int)*(2*m+2));
+	for (int i=0;i<pw[m];i++) f[0][i][0]=cnt[i];
+	int now=1;
+	for (int i=0;i<m;i++) {
+		for (int j=0;j<pw[m];j++)
+			memset(f[now][j],0,sizeof(int)*(2*m+2));
+		for (int j=0;j<pw[m];j++)
+			for (int k=0;k<=2*m;k++) {
+				if (!f[now^1][j][k]) continue;
+				int x=j/pw[i]%3;
+				for (int l=0;l<=2;l++) {
+					int to=j+(l-x)*pw[i];
+					f[now][to][k+abs(x-l)]+=f[now^1][j][k];
+				}
+			}
+		now^=1;
+	}
+	memset(ans,0,sizeof(ans));
+	for (int i=0;i<pw[m];i++) {
+		if (!cnt[i]) continue;
+		ans[0]+=1LL*cnt[i]*(cnt[i]-1);
+		for (int j=1;j<=2*m;j++) ans[j]+=1LL*cnt[i]*f[now^1][i][j];
+	}
+	for (int i=0;i<=2*m;i++) printf("%lld\n",ans[i]/2);
+}
+
+int main() {
+	pw[0]=1;
+	for (int i=1;i<=12;i++) pw[i]=pw[i-1]*3; 
+	scanf("%d",&T);
+	for (int i=1;i<=T;i++) Solve();
+	return 0;
+}
+```
+
+
 ## **H. Virtual Participation**
 
 ### **题意**
@@ -703,3 +784,4 @@ int main() {
 [3]: https://vexoben.github.io/assets/images/Blog/2015-Multi-University-Contest-4(3).JPG
 [4]: https://vexoben.github.io/assets/images/Blog/2015-Multi-University-Contest-4(4).JPG
 [5]: https://vexoben.github.io/assets/images/Blog/2015-Multi-University-Contest-4(5).JPG
+[6]: https://vexoben.github.io/assets/images/Blog/2015-Multi-University-Contest-4(6).JPG
