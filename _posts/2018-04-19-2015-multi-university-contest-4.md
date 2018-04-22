@@ -3,7 +3,7 @@ layout: post
 title: 2015 Multi-University Contest 4
 date: 2018-04-19 18:27:22 +0800
 categories: contest
-tags: 脑洞题 模拟 构造 基环树
+tags: 脑洞题 模拟 构造 基环树 DP
 img: https://vexoben.github.io/assets/images/Blog/2015-Multi-University-Contest-4.JPG
 ---
 
@@ -294,7 +294,7 @@ m<=11,n<=300000
 
 初始状态**f[m][s][0]=串s出现次数**。只要转移出**f[0][s][x]**就可以了。
 
-假设串**s**第**i**位是c，那么就有：
+假设串**s**第**i**位是**c**，那么就有：
 
 ![][6]
 
