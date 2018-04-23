@@ -3,7 +3,7 @@ layout: post
 title: 2015 Multi-University Contest 4
 date: 2018-04-19 18:27:22 +0800
 categories: contest
-tags: 脑洞题 模拟 构造 基环树 DP
+tags: 脑洞题 模拟 构造 基环树 DP 数据结构 树链剖分
 img: https://vexoben.github.io/assets/images/Blog/2015-Multi-University-Contest-4.JPG
 ---
 
@@ -358,6 +358,177 @@ int main() {
 }
 ```
 
+
+## **E. Simple Problem**
+
+### **题意**
+
+一开始有一个点0，进行(n-1)次加点操作，每次保证加入后的图仍是一棵树，输出每次加点后树的最大独立集。
+
+### **题解**
+
+因为树是二分图，只需求出最大匹配数就可以了。
+
+如果树的形态不变，显然有这样的贪心策略：用**f[i]**表示i号点是否和它的一个孩子匹配，那么，
+
+![][7]
+
+再考虑加点操作。我们用**a[i]**表示i号点的孩子中f为0的个数，那么加入一个点x后会影响的点是满足以下条件的点y组成的链：
+
+1、y是x的祖先；
+
+2、y到x的路径中，距离x为奇数的点a为0，为偶数的点a为1。
+
+那我们就可以事先把树建好，树链剖分，每次直接修改即可。
+
+线段树需要记录：f的和，深度为奇数、偶数的a的最大值。
+
+一段x的祖先的区间，如果距离x为奇数的点a最大值为0，为偶数的点a最大值为1，这段区间会被影响。这是因为一个点如果有孩子的a是0，这个点的a至少是1。
+
+修改的时候，被影响区间的f被翻转，a按深度奇偶性加减。
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+const int N=2e5+10;
+
+int n,m,E,y,tim;
+int fir[N],nex[N<<1],arr[N<<1];
+int pos[N],son[N],siz[N],fa[N],top[N],dep[N],dfn[N];
+int len[N<<2],val[N<<2],rev[N<<2],mx[N<<2][2],tag[N<<2][2];
+
+inline void Add_Edge(int x,int y) {
+	nex[++E]=fir[x];
+	fir[x]=E; arr[E]=y;
+}
+
+void dfs1(int x) {
+	siz[x]=1; son[x]=0;
+	for (int i=fir[x];i;i=nex[i]) {
+		if (arr[i]==fa[x]) continue;
+		dfs1(arr[i]);
+		siz[x]+=siz[arr[i]];
+		if (siz[arr[i]]>siz[son[x]]) son[x]=arr[i];
+	}
+}
+
+void dfs2(int x) {
+	dfn[pos[x]=++tim]=x;
+	if (son[x]) top[son[x]]=top[x],dfs2(son[x]);
+	for (int i=fir[x];i;i=nex[i]) {
+		if (arr[i]==fa[x]||arr[i]==son[x]) continue;
+		else top[arr[i]]=arr[i],dfs2(arr[i]);
+	}
+}
+
+void Build(int x,int l,int r) {
+	val[x]=mx[x][0]=mx[x][1]=tag[x][0]=tag[x][1]=rev[x]=0;
+	len[x]=r-l+1;
+	if (len[x]==1) return;
+	int mid=(l+r)>>1;
+	Build(x<<1,l,mid); Build(x<<1|1,mid+1,r);
+}
+
+inline void Pushdown(int x) {
+	for (int i=0;i<2;i++) {
+		if (!tag[x][i]) continue;
+		mx[x<<1][i]+=tag[x][i];
+		mx[x<<1|1][i]+=tag[x][i];
+		tag[x<<1][i]+=tag[x][i];
+		tag[x<<1|1][i]+=tag[x][i];
+		tag[x][i]=0;
+	}
+	if (rev[x]) {
+		val[x<<1]=len[x<<1]-val[x<<1];
+		val[x<<1|1]=len[x<<1|1]-val[x<<1|1];
+		rev[x<<1]^=1; rev[x<<1|1]^=1;
+		rev[x]=0;
+	}
+}
+
+inline void Pushup(int x) {
+	for (int i=0;i<2;i++) mx[x][i]=max(mx[x<<1][i],mx[x<<1|1][i]);
+	val[x]=val[x<<1]+val[x<<1|1];
+}
+
+void Query(int x,int l,int r,int lt,int rt,int t) {
+	if (lt<=l&&r<=rt) {
+		if (mx[x][t]<=1&&mx[x][t^1]<=0) return (void) (y=l);
+		if (l==r) return (void) (y=(!y)?(n+1):y);
+	}
+	Pushdown(x);
+	int mid=(l+r)>>1;
+	if (mid<rt) {
+		Query(x<<1|1,mid+1,r,lt,rt,t);
+		if (y>mid+1) return;
+	}
+	if (lt<=mid) Query(x<<1,l,mid,lt,rt,t);
+}
+
+void Updata(int x,int l,int r,int lt,int rt,int t) {
+	if (lt<=l&&r<=rt) {
+		tag[x][t]--; tag[x][t^1]++;
+		mx[x][t]--; mx[x][t^1]++;
+		return;
+	}
+	Pushdown(x);
+	int mid=(l+r)>>1;
+	if (mid>=lt) Updata(x<<1,l,mid,lt,rt,t);
+	if (mid<rt) Updata(x<<1|1,mid+1,r,lt,rt,t);
+	Pushup(x);
+}
+
+void Reverse(int x,int l,int r,int lt,int rt) {
+	if (lt<=l&&r<=rt) {
+		val[x]=len[x]-val[x];
+		rev[x]^=1;
+		return;
+	}
+	Pushdown(x);
+	int mid=(l+r)>>1;
+	if (mid>=lt) Reverse(x<<1,l,mid,lt,rt);
+	if (mid<rt) Reverse(x<<1|1,mid+1,r,lt,rt);
+	Pushup(x);
+}
+
+void Modify(int x,int t) {
+	for (;x;x=fa[top[x]]) {
+		y=0;
+		Query(1,1,n,pos[top[x]],pos[x],t);
+		if (y==n+1) return (void) Updata(1,1,n,pos[x],pos[x],t);
+		y=dfn[y];
+		Updata(1,1,n,pos[y],pos[x],t);
+		Reverse(1,1,n,pos[y],pos[x]);
+		if (y!=top[x]) {
+			y=fa[y];
+			Updata(1,1,n,pos[y],pos[y],t);
+			return;
+		}
+	}
+}
+
+void Solve() {
+	E=tim=0;
+	memset(fir,0,sizeof(int)*(n+3));
+	for (int i=2;i<=n;i++) {
+		scanf("%d",&fa[i]);
+		Add_Edge(i,++fa[i]);
+		Add_Edge(fa[i],i);
+		dep[i]=dep[fa[i]]+1;
+	}
+	dfs1(1); top[1]=1; dfs2(1);
+	Build(1,1,n);
+	for (int i=2;i<=n;i++) {
+		Modify(fa[i],dep[i]&1);
+		printf("%d\n",i-val[1]);
+	}	
+}
+
+int main() {
+	while (~scanf("%d",&n)) Solve();
+	return 0;
+}
+```
 
 ## **F. Test for Rikka**
 
@@ -845,3 +1016,4 @@ int main() {
 [4]: https://vexoben.github.io/assets/images/Blog/2015-Multi-University-Contest-4(4).JPG
 [5]: https://vexoben.github.io/assets/images/Blog/2015-Multi-University-Contest-4(5).JPG
 [6]: https://vexoben.github.io/assets/images/Blog/2015-Multi-University-Contest-4(6).JPG
+[7]: https://vexoben.github.io/assets/images/Blog/2015-Multi-University-Contest-4(7).JPG
