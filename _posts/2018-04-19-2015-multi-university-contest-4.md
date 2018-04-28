@@ -1155,7 +1155,7 @@ xxy
 
 7、cnt1=3，cnt2=1。枚举第一次变换变了什么字母，然后同情况6计算即可。
 
-```
+```cpp
 #include<bits/stdc++.h>
 #define LL long long
 using namespace std;

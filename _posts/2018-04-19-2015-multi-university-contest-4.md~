@@ -3,7 +3,7 @@ layout: post
 title: 2015 Multi-University Contest 4
 date: 2018-04-19 18:27:22 +0800
 categories: contest
-tags: 脑洞题 模拟 构造 基环树 DP 数据结构 树链剖分
+tags: 脑洞题 模拟 构造 基环树 DP 数据结构 树链剖分 LCT
 img: https://vexoben.github.io/assets/images/Blog/2015-Multi-University-Contest-4.JPG
 ---
 
@@ -592,6 +592,194 @@ int main() {
 ```
 
 
+## **G. Undirected Graph**
+
+### **题意**
+
+给定一张n个点m条边的无向图，q次询问，每次询问如果只保留左右端点都在区间[l,r]中的边，原图有几个联通块。
+
+n<=100000,m<=200000,q<=200000
+
+### **题解**
+
+考虑离线。如果所有询问关于右端点排序，可选的边就是右端点不超过询问右端点的边，且这些边中左端点越靠右，越容易减小联通块个数。
+
+那么将边也关于右端点排序。当询问的右端点右移，相应地也将边的右端点右移。每次加入一条边的时候，如果连接的两个点不连通，直接加入；否则，代替掉两点路径上左端点最靠左的边（如果这条边的左端点比加入边的左端点靠左）。这样就需要用一颗LCT维护最小生成树森林。
+
+询问的时候，每多一条左端点在询问左端点右边的边，就会使联通块个数-1，树状数组维护一下即可。
+
+```cpp
+#pragma GCC optimize(2)
+#include<bits/stdc++.h>
+using namespace std;
+const int N=3e5+10;
+const int V=1e5+5;
+const int inf=0x3f3f3f3f;
+
+int n,m,q,tot;
+int mi[N],ch[N][2],rev[N],st[N],tree[N],fa[N],ans[N];
+struct Pair {
+	int u,v,tim;
+	bool operator < (Pair &other) const {
+		return v<other.v;
+	}
+}E[N],Q[N];
+
+namespace FastIO {
+	template<typename tp> inline void read(tp &x) {
+		x=0; register char c=getchar(); register bool f=0;
+		for(;c<'0'||c>'9';f|=(c=='-'),c = getchar());
+		for(;c>='0'&&c<='9';x=(x<<3)+(x<<1)+c-'0',c = getchar());
+		if(f) x=-x;
+	}
+	template<typename tp> inline void write(tp x) {
+	  if (x==0) return (void) (putchar('0'));
+     if (x<0) putchar('-'),x=-x;
+     int pr[20]; register int cnt=0;
+     for (;x;x/=10) pr[++cnt]=x%10;
+     while (cnt) putchar(pr[cnt--]+'0');
+	}
+	template<typename tp> inline void writeln(tp x) {
+		write(x);
+		putchar('\n');
+	}
+}
+using namespace FastIO;
+
+inline int Get(int x) {
+	return (ch[fa[x]][1]==x);
+}
+
+inline int Isroot(int x) {
+	return (ch[fa[x]][0]!=x)&&(ch[fa[x]][1]!=x);
+}
+
+inline void Pushup(int x) {
+	if (E[mi[ch[x][0]]].u<E[mi[ch[x][1]]].u) mi[x]=mi[ch[x][0]];
+	else mi[x]=mi[ch[x][1]];
+	if (x<=V) return;
+	if (E[x-V].u<E[mi[x]].u) mi[x]=x-V;
+}
+
+inline void Pushdown(int x) {
+	if (!rev[x]) return;
+	swap(ch[x][0],ch[x][1]);
+	rev[ch[x][0]]^=1;
+	rev[ch[x][1]]^=1;
+	rev[x]=0;
+}
+
+inline void Rotate(int x) {
+	int y=fa[x],z=fa[y],k=Get(x);
+	if (!Isroot(y)) ch[z][Get(y)]=x;
+	fa[x]=z;
+	fa[ch[x][k^1]]=y;
+	ch[y][k]=ch[x][k^1];
+	ch[x][k^1]=y;
+	fa[y]=x;
+	Pushup(y); Pushup(x);
+}
+
+inline void Splay(int x) {
+	int top=0;
+	st[++top]=x;
+	for (int t=x;!Isroot(t);t=fa[t]) st[++top]=fa[t];
+	for (;top;top--) Pushdown(st[top]);
+	for (;!Isroot(x);Rotate(x)) {
+		if (!Isroot(fa[x])) (Get(x)==Get(fa[x]))?Rotate(fa[x]):Rotate(x);
+	}
+	Pushup(x);
+}
+
+inline void Access(int x) {
+	for (int t=0;x;t=x,x=fa[x]) {
+		Splay(x); ch[x][1]=t; Pushup(x);
+	}
+}
+
+inline int Find(int x) {
+	Access(x); Splay(x);
+	while (ch[x][0]) x=ch[x][0];
+	Splay(x); return x;
+}
+
+inline void Evert(int x) {
+	Access(x); Splay(x); rev[x]^=1;
+}
+
+inline void Link(int x,int y) {
+	Evert(x); fa[x]=y;
+}
+
+inline void Cut(int x,int y) {
+	Evert(x); Access(y); Splay(y);
+	ch[y][0]=fa[x]=0;
+}
+
+inline int Query(int x,int y) {
+	Evert(x); Access(y); Splay(y);
+	return mi[y];
+}
+
+inline void Updata(int x,int del) {
+	while (x<=n) tree[x]+=del,x+=(x&-x);
+}
+
+inline int ask(int x) {
+	int ans=0;
+	while (x) ans+=tree[x],x-=(x&-x);
+	return ans;
+}
+
+void Insert(int x) {
+	if (E[x].u==E[x].v) return;
+	if (Find(E[x].u)!=Find(E[x].v)) {
+		++tot; Updata(E[x].u,1);
+		Link(x+V,E[x].u); Link(x+V,E[x].v);
+		return;
+	}
+	int t=Query(E[x].u,E[x].v);
+	if (E[t].u>E[x].u) return;
+	Updata(E[t].u,-1);
+	Cut(t+V,E[t].u); Cut(t+V,E[t].v);
+	Updata(E[x].u,1);
+	Link(x+V,E[x].u); Link(x+V,E[x].v);
+}
+
+void Init() {
+	tot=0;
+	memset(tree,0,sizeof(int)*(n+5));
+	memset(ans,0,sizeof(int)*(q+5));
+	for (int i=1;i<=n;i++) ch[i][0]=ch[i][1]=fa[i]=rev[i]=mi[i]=0;
+	for (int i=1+V;i<=m+1+V;i++) ch[i][0]=ch[i][1]=fa[i]=rev[i]=mi[i]=0;	
+} 
+
+int main() {
+	while (~scanf("%d%d%d",&n,&m,&q)) {
+		for (int i=1;i<=m;i++) {
+			read(E[i].u); read(E[i].v);
+			if (E[i].u>E[i].v) swap(E[i].u,E[i].v);
+		}
+		for (int i=1;i<=q;i++) {
+			read(Q[i].u); read(Q[i].v); Q[i].tim=i;
+		}
+		sort(E+1,E+m+1); sort(Q+1,Q+q+1);
+		E[0].u=inf; for (int i=1;i<=m;i++) mi[i+V]=i;
+		for (int i=1,j=0;i<=q;i++) {
+			while (j<m&&E[j+1].v<=Q[i].v) {
+				++j;
+				Insert(j);
+			}
+			ans[Q[i].tim]=n-tot+ask(Q[i].u-1);
+		}
+		for (int i=1;i<=q;i++) writeln(ans[i]);
+		Init();
+	}
+	return 0;
+}
+```
+
+
 ## **H. Virtual Participation**
 
 ### **题意**
@@ -951,7 +1139,192 @@ xxy
 
 ![][8]
 
-3、cnt1=
+3、cnt1=2,cnt2=2。这时每次变换所能改变的字母是确定的，否则改变另一个字母会使两个字母变成相同就变不回来了。然后同情况2计算即可。要注意的是有可能永远不能变成相同，比如"xzz"和"xyx"
+
+4、cnt1=3，cnt2=3。S、T相同答案是1，否则为0
+
+5、cnt1=3，cnt2=2。枚举第一次变换变了什么字母，然后同情况3计算即可。
+
+6、cnt1=2，cnt2=1。显然是两个字母先变，变到某处后变成一个字母，然后再进行若干次变换。因为6是两种变换的循环节，这时要枚举变成一个字母所用步数关于6的余数，这时一个字母变换次数关于6取模有两种可能。不考虑变循环节的费用，假设前者所需费用是Cx，后者是Cy，那么前后可变循环节次数的最大值是：
+
+![][9]
+
+这时对答案产生的贡献是
+
+![][10]
+
+7、cnt1=3，cnt2=1。枚举第一次变换变了什么字母，然后同情况6计算即可。
+
+```
+#include<bits/stdc++.h>
+#define LL long long
+using namespace std;
+const int N=1e6+10;
+const int mod=1e9+7;
+
+LL c[3],cx;
+int n,m,len,to[3],a[3][2];
+char s[N],sx[N],t[N];
+
+inline int nex(int x) {
+	return (x==2)?0:x+1;
+}
+
+inline int getmod(LL x) {
+	x%=mod;
+	return (x<0)?x+mod:x;
+}
+
+int calc1(char *s,char *t,LL cc) {
+	int a=s[1]-'x',b=t[1]-'x';
+	while (a!=b) cc+=c[a],a=nex(a);
+	if (cc>cx) return 0;
+	return getmod((cx-cc)/(c[0]+c[1]+c[2])+1);
+}
+
+int calc2(char *s,char *t,LL cc) {
+	memset(to,0,sizeof(to));
+	for (int i=1;i<=len;i++) {
+		if (!to[s[i]-'x']) to[s[i]-'x']=t[i];
+		if (to[s[i]-'x']!=t[i]) return 0;
+	}
+	int a=s[1],u=t[1],b,v;
+	for (int i=1;i<=len;i++) {
+		if (s[i]!=a) b=s[i];
+		if (t[i]!=u) v=t[i];
+	}
+	a-='x'; b-='x'; u-='x'; v-='x';
+	while (!(a==u&&b==v)) {
+		if (nex(a)==b) cc+=c[b],b=nex(b);
+		else if (nex(b)==a) cc+=c[a],a=nex(a);
+	}
+	if (cc>cx) return 0;
+	else return getmod((cx-cc)/(c[0]+c[0]+c[1]+c[1]+c[2]+c[2])+1);
+}
+
+int calc3(char *s,char *t) {
+	for (int i=1;i<=len;i++)
+		if (s[i]!=t[i]) return 0;
+	return 1;
+}
+
+int calc4(char *s,char *t,LL cc) {
+	int a=s[1],u=t[1],b; LL ans=0;
+	for (int i=1;i<=len;i++) {
+		if (s[i]!=a) b=s[i];
+	}
+	a-='x'; b-='x'; u-='x';
+	for (int i=0;i<6;i++) {
+		int x=a,y=b; LL cd=cc;
+		for (int j=1;j<=i;j++) {
+			if (nex(x)==y) cd+=c[y],y=nex(y);
+			else if (nex(y)==x) cd+=c[x],x=nex(x);
+		}
+		if (nex(x)==y) cd+=c[x],x=y;
+		else if (nex(y)==x) cd+=c[y],y=x;
+		for (int j=0;j<6;j++) {
+			if (cd>cx) break;
+			if (x==u) {
+				LL mx=(cx-cd)/(c[0]+c[0]+c[1]+c[1]+c[2]+c[2]);
+				mx=getmod(mx);
+				ans+=(mx+1)*(mx+2)/2;
+				ans=getmod(ans);
+			}
+			cd+=c[x]; x=nex(x);
+		}
+	}
+	return ans;
+}
+
+void Solve() {
+	memset(a,0,sizeof(a));
+	scanf("%lld%lld%lld%lld",&c[0],&c[1],&c[2],&cx);
+	scanf("%s",s+1); scanf("%s",t+1);
+	len=strlen(s+1);
+	for (int i=1;i<=len;i++) {
+		a[s[i]-'x'][0]++; a[t[i]-'x'][1]++;
+	}
+	int cnt1=(a[0][0]>0)+(a[1][0]>0)+(a[2][0]>0);
+	int cnt2=(a[0][1]>0)+(a[1][1]>0)+(a[2][1]>0);
+	if (cnt1<cnt2) return (void) (puts("0"));
+	if (cnt1==1&&cnt2==1) return (void) (printf("%d\n",calc1(s,t,0)));
+	if (cnt1==2&&cnt2==2) return (void) (printf("%d\n",calc2(s,t,0)));
+	if (cnt1==3&&cnt2==3) return (void) (printf("%d\n",calc3(s,t)));
+	if (cnt1==3&&cnt2==2) {
+		LL ans=0;
+		for (int i=0;i<3;i++) {
+			for (int j=1;j<=len;j++) sx[j]=(s[j]==i+'x')?(nex(s[j]-'x')+'x'):s[j];
+			ans+=calc2(sx,t,c[i]);
+		}
+		return (void) (printf("%d\n",getmod(ans)));
+	}
+	if (cnt1==2&&cnt2==1) return (void) (printf("%d\n",calc4(s,t,0)));
+	if (cnt1==3&&cnt2==1) {
+		LL ans=0;
+		for (int i=0;i<3;i++) {
+			for (int j=1;j<=len;j++) sx[j]=(s[j]==i+'x')?(nex(s[j]-'x')+'x'):s[j];
+			ans+=calc4(sx,t,c[i]);
+		}
+		return (void) (printf("%d\n",getmod(ans)));
+	}
+	return (void) puts("0");
+}
+
+int main() {
+	int T; scanf("%d",&T);
+	while (T--) Solve();
+	return 0;
+}
+/*
+2
+2 5 3 12
+xxx
+yyy
+1 1 2 2
+zzz
+yyy
+
+2
+1 1 1 10
+xy
+yz
+1 1 1 10
+xzz
+xyx
+
+2
+1 1 1 10
+xyz
+xyz
+1 1 1 10
+xyz
+yxz
+
+2
+1 1 1 10
+xyz
+xxy 
+1 1 1 10
+xyz
+yyx
+
+3
+1 1 1 5
+xzx
+xxx
+1 1 1 10
+xxy
+xxx
+1 1 1 20
+xyx
+zzz
+
+1
+3 2 2 9
+xyz
+xxx
+*/
+```
 
 ## **L. ZZX and Permutations**
 
@@ -1072,3 +1445,6 @@ int main() {
 [5]: https://vexoben.github.io/assets/images/Blog/2015-Multi-University-Contest-4(5).JPG
 [6]: https://vexoben.github.io/assets/images/Blog/2015-Multi-University-Contest-4(6).JPG
 [7]: https://vexoben.github.io/assets/images/Blog/2015-Multi-University-Contest-4(7).JPG
+[8]: https://vexoben.github.io/assets/images/Blog/2015-Multi-University-Contest-4(8).JPG
+[9]: https://vexoben.github.io/assets/images/Blog/2015-Multi-University-Contest-4(9).JPG
+[10]: https://vexoben.github.io/assets/images/Blog/2015-Multi-University-Contest-4(10).JPG
