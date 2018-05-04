@@ -7,6 +7,8 @@ tags: 构造
 img: https://vexoben.github.io/assets/images/Blog/2018-05-03-codeforces-976d Degree Set.JPG
 ---
 
+题目链接：[http://codeforces.com/problemset/problem/976/D][1]
+
 ## **题意**
 
 升序给出一个大小为n的集合d，构造一张无向图，它所有点度数组成的集合恰好等于集合d
@@ -75,3 +77,5 @@ int main() {
 	return 0;
 }
 ```
+
+[1]: http://codeforces.com/problemset/problem/976/D
