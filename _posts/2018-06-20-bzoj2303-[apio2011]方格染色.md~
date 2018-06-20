@@ -7,7 +7,7 @@ tags: 数据结构 并查集
 img: https://vexoben.github.io/assets/images/Blog/2018-06-20-bzoj2303-[apio2011]方格染色.JPG
 ---
 
-题目链接：[https://www.lydsy.com/JudgeOnline/problem.php?id=2303][5]
+题目链接：[https://www.lydsy.com/JudgeOnline/problem.php?id=2303][1]
 
 ## **题意**
 
@@ -91,4 +91,4 @@ int main() {
 }
 ```
 
-[5]:https://www.lydsy.com/JudgeOnline/problem.php?id=2303
+[1]:https://www.lydsy.com/JudgeOnline/problem.php?id=2303
