@@ -1,1 +1,1 @@
-https://vexoben.github.io/assets/images/Blog/2018-06-20-bzoj2303-[apio2011]方格染色.JPG
+https://vexoben.github.io/assets/images/Blog/2018-06-23-[模板]后缀自动机(sam).JPG
