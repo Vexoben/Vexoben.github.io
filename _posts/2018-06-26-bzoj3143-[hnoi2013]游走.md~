@@ -19,8 +19,6 @@ img: https://vexoben.github.io/assets/images/Blog/2018-06-26-bzoj3143-[hnoi2013]
 
 现在，请你对这$$M$$条边进行编号，使得小Z获得的总分的期望值最小。
 
-$$N<=500$$
-
 ## **题解**
 
 首先根据期望的线性性，我们知道总分的期望=所以边获得分数的期望和。
@@ -37,7 +35,7 @@ $$ x[N]=1 $$
 
 $$ x[1]=1+\sum_{u[i]=1}\frac{x[v[i]]}{d[v[i]]}+\sum_{v[i]=1}\frac{x[u[i]]}{d[u[i]]} $$
 
-$$ x[k]=\sum_{u[i]=k}\frac{x[v[i]]}{d[v[i]]}+\sum_{v[i]=k}\frac{x[u[i]]}{d[u[i]]} ,1<k<N $$
+$$ \forall 1<k<n, x[k]=\sum_{u[i]=k}\frac{x[v[i]]}{d[v[i]]}+\sum_{v[i]=k}\frac{x[u[i]]}{d[u[i]]} $$
 
 就是说如果有$$x[i]$$的概率到点$$i$$，那么如果存在边$$(i,j)$$，就会对$$x[j]$$产生$$\frac{x[i]}{d[i]}$$的贡献
 
