@@ -25,9 +25,7 @@ dsu on tree,即树上启发式合并，是一种离线算法，结合树链剖�
 
 一个节点需要被暴力dfs，仅当它对应的祖先是x的轻孩子。又由树剖复杂度证明知道一个点到根节点的路径上轻孩子不超过O(logn)，所以设修改复杂度是w，总复杂度就是O(n*logn*w)
 
-## **模板题**
-
-[codeforces246E Blood Cousins Return][1]
+## **Codeforces246E Blood Cousins Return**
 
 ### **题意**
 
@@ -126,5 +124,3 @@ int main() {
 	return 0;
 }
 ```
-
-[1]:http://codeforces.com/contest/246/problem/E
