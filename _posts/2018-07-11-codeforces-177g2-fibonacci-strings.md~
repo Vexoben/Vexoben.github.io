@@ -7,7 +7,7 @@ tags: 字符串 矩阵快速幂
 img: https://vexoben.github.io/assets/images/Blog/2018-07-11-codeforces-177g2-fibonacci-strings.JPG
 ---
 
-[codeforces177G2 Fibonacci Strings][5]
+[codeforces177G2 Fibonacci Strings][1]
 
 ## **题意**
 
@@ -27,7 +27,7 @@ m<=10000，n<=1e18，询问总串长<=100000
 
 记Kmp(s,t)为t在s中的出现次数。
 
-令a=Kmp(s[x],t)，b=Kmp(s[x+1],t )，c=Kmp(s[x+2])-Kmp(s[x+1])-Kmp(s[x])，d=Kmp(s[x+3]-Kmp(s[x+2])-Kmp(s[x+1]))
+令a=Kmp(s[x],t),b=Kmp(s[x+1],t ),c=Kmp(s[x+2])-Kmp(s[x+1])-Kmp(s[x]),d=Kmp(s[x+3]-Kmp(s[x+2])-Kmp(s[x+1]))
 
 那么c是s[x]与s[x+1]拼接产生的额外贡献，d是s[x+1]与s[x+2]拼接产生的额外贡献。
 
@@ -35,7 +35,7 @@ m<=10000，n<=1e18，询问总串长<=100000
 
 这时就可以使用矩阵快速幂求解了。
 
-![][6]
+![][2]
 
 ```cpp
 #include<bits/stdc++.h>
@@ -134,5 +134,5 @@ int main() {
 }
 ```
 
-[5]:http://codeforces.com/contest/177/problem/G2
-[6]:https://vexoben.github.io/assets/images/Blog/2018-07-11-codeforces-177g2-fibonacci-strings(2).JPG
+[1]:http://codeforces.com/contest/177/problem/G2
+[2]:https://vexoben.github.io/assets/images/Blog/2018-07-11-codeforces-177g2-fibonacci-strings(2).JPG
