@@ -50,7 +50,7 @@ animation: # animate.css, see https://github.com/daneden/animate.css
 
 music_player:
   switch: false
-  player: "" #cplayer or aplayer
+  player: "aplayer" #cplayer or aplayer
   button_color: "#1abc9c"
   music:
     - title: '下雨了'
