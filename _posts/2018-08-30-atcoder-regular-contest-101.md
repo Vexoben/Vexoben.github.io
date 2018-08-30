@@ -7,6 +7,8 @@ tags: DP
 img: https://vexoben.github.io/assets/images/Blog/2018-08-30-atcoder-regular-contest-101.JPG
 ---
 
+很妙妙的题，但是网上没有完整题解非常不爽QAQ
+
 (刷新以获取数学公式)
 
 ## **E.Ribbons on Tree**
@@ -17,7 +19,7 @@ img: https://vexoben.github.io/assets/images/Blog/2018-08-30-atcoder-regular-con
 
 给定一棵 $$ n $$ 个节点的树( $$ n $$ 为偶数) ,现要将树上的点分为 $$ \frac{n}{2} $$ 组,每一组的两个点由一条路径相连.求出每条边都被至少一条路径覆盖的分组方案数.
 
-n <= 5000
+$$ n ≤ 5000 $$ 
 
 ### **题解**
 
@@ -75,7 +77,7 @@ void Solve(int x) {
 
 $$ \sum _ {i =  1} ^ {n} S_{i} * \sum _ {j = 1} ^ {i - 1} S_{j} $$
 
-即 $$ \sum _ {i < j} S_{i}S_{j}$$
+即 ![][7]
 
 考虑一对点 $$ (i, j) $$ 仅当 $$ i $$ ， $$ j $$ 在不同子树中时对复杂度才有贡献。
 
@@ -250,6 +252,7 @@ int main() {
 
 ```
 
+[7]: https://vexoben.github.io/assets/images/Blog/2018-08-30-atcoder-regular-contest-101(2).png
 
 [8]: https://arc101.contest.atcoder.jp/tasks/arc101_c
 
