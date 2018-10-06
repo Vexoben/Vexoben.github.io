@@ -19,7 +19,7 @@ img: https://vexoben.github.io/assets/images/Blog2/2018-10-06-codeforces718c-sas
 
 2、求$$\sum_{i = l}^{r} f(a[i])$$，其中$$f(x)$$是第$$x$$个斐波那契数。
 
-$$n,m  <= 100000$$
+n,m  ≤ 100000
 
 ### **题解**
 

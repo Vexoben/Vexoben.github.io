@@ -15,7 +15,7 @@ img: https://vexoben.github.io/assets/images/Blog2/2018-10-06-codeforces713c-son
 
 给定一组数，每次可以用$$1$$的代价将一个数$$+1$$或$$-1$$，求将数列变为严格上升的最小代价。
 
-$$ n ≤ 3000 $$
+n ≤ 3000
 
 ### **题解**
 
