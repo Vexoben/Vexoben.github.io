@@ -27,21 +27,21 @@ $$ n <= 3000 $$
 
 定义函数$$f_i(x)$$为将前$$i$$个数变为严格上升，且保证$$a_{i}<=x$$的最小代价。我们有：
 
-$$$$f_i(x)=\begin{cases}
+$$f_i(x)=\begin{cases}
 Min\{|y - a_i|,y<=x\} & i = 1 \\
 Min\{f_{i - 1}(y) + |y - a_i|, y <= x\} & i > 1
-\end{cases}$$$$
+\end{cases}$$
 
 显然，$$f_{i}(x)$$是一个斜率为非正整数的下凸包。
 
 设$$opt(i)$$是最小的$$x$$使得$$f_i(x)$$取到最小值。那么$$opt(i)$$就是斜率从$$-1$$到$$0$$的转折点，我们可以得到：
 
-$$$$ f_i{opt(i)} = \begin{cases}
+$$ f_i{opt(i)} = \begin{cases}
 0 & i = 1 \\
 f_{i - 1}(opt(i - 1)) & a_{i}>=opt(i - 1) \\
 f_{i - 1}(opt(i - 1)) + |a_{i}-opt(i - 1)| & a_{i} < opt(i - 1)
 \end{cases}
-$$$$
+$$
 
 我们不能直接贪心的原因是$$opt(i)$$不能维护。
 
