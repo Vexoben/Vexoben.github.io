@@ -15,7 +15,7 @@ img: https://vexoben.github.io/assets/images/Blog2/2018-10-06-codeforces713c-son
 
 给定一组数，每次可以用$$1$$的代价将一个数$$+1$$或$$-1$$，求将数列变为严格上升的最小代价。
 
-$$ n <= 3000 $$
+$$ n ﹤= 3000 $$
 
 ### **题解**
 
@@ -25,29 +25,21 @@ $$ n <= 3000 $$
 
 但这样没有什么技术含量。这题是有$$O(nlogn)$$的做法的。
 
-定义函数$$f_i(x)$$为将前$$i$$个数变为严格上升，且保证$$a_{i}<=x$$的最小代价。我们有：
+定义函数$$f_i(x)$$为将前$$i$$个数变为严格上升，且保证$$a_{i}﹤=x$$的最小代价。我们有：
 
-$$f_i(x)=\begin{cases}
-Min\{|y - a_i|,y<=x\} & i = 1 \\
-Min\{f_{i - 1}(y) + |y - a_i|, y <= x\} & i > 1
-\end{cases}$$
+![][2]
 
 显然，$$f_{i}(x)$$是一个斜率为非正整数的下凸包。
 
 设$$opt(i)$$是最小的$$x$$使得$$f_i(x)$$取到最小值。那么$$opt(i)$$就是斜率从$$-1$$到$$0$$的转折点，我们可以得到：
 
-$$ f_i{opt(i)} = \begin{cases}
-0 & i = 1 \\
-f_{i - 1}(opt(i - 1)) & a_{i}>=opt(i - 1) \\
-f_{i - 1}(opt(i - 1)) + |a_{i}-opt(i - 1)| & a_{i} < opt(i - 1)
-\end{cases}
-$$
+![][3]
 
 我们不能直接贪心的原因是$$opt(i)$$不能维护。
 
 那么考虑维护$$f_{i}$$这个下凸包。
 
-假设我们已经得到了$$f_{i-1}$$，现在加入$$a_{i}$$。可以发现，对于$$x<a_{i}$$的直线，加入$$a_{i}$$会使斜率$$-1$$，对于$$x>a_{i}$$的直线，加入$$a_{i}$$会使斜率$$+1$$(除非它的斜率已经是$$0$$，那么就不再增加)。
+假设我们已经得到了$$f_{i-1}$$，现在加入$$a_{i}$$。可以发现，对于$$x﹤a_{i}$$的直线，加入$$a_{i}$$会使斜率$$-1$$，对于$$x>a_{i}$$的直线，加入$$a_{i}$$会使斜率$$+1$$(除非它的斜率已经是$$0$$，那么就不再增加)。
 
 我们用一个priority_queue维护它。堆中第$$i$$大的元素，是斜率由$$-i$$转为$$-i+1$$的转折点的横坐标。
 
@@ -65,4 +57,10 @@ $$
 
 事实证明这样做是正确的。总复杂度是$$O(nlogn)$$
 
+
+
 [1]: http://codeforces.com/contest/713/problem/C
+
+[2]: https://vexoben.github.io/assets/images/Blog2/2018-10-06-codeforces713c-sonya-and-problem-wihtout-a-legend(2).png
+
+[3]: https://vexoben.github.io/assets/images/Blog2/2018-10-06-codeforces713c-sonya-and-problem-wihtout-a-legend(3).png
