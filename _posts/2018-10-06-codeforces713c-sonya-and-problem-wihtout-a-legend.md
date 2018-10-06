@@ -15,7 +15,7 @@ img: https://vexoben.github.io/assets/images/Blog2/2018-10-06-codeforces713c-son
 
 给定一组数，每次可以用$$1$$的代价将一个数$$+1$$或$$-1$$，求将数列变为严格上升的最小代价。
 
-$$ n ﹤= 3000 $$
+$$ n ≤ 3000 $$
 
 ### **题解**
 
@@ -57,7 +57,31 @@ $$ n ﹤= 3000 $$
 
 事实证明这样做是正确的。总复杂度是$$O(nlogn)$$
 
+```cpp
+#include<bits/stdc++.h>
+#define LL long long
+using namespace std;
+const int N = 1e5 + 10;
 
+int n, x;
+LL res;
+priority_queue<int> Q;
+
+int main() {
+	scanf("%d", &n);
+	for (int i = 1; i <= n; ++i) {
+		scanf("%d", &x);
+		x -= i;
+		Q.push(x);
+		if (Q.top() > x) {
+			res += Q.top() - x;
+			Q.pop();
+			Q.push(x);
+		}
+	}
+	cout << res << endl;
+}
+```
 
 [1]: http://codeforces.com/contest/713/problem/C
 
