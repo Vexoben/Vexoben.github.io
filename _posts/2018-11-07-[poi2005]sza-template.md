@@ -1,6 +1,6 @@
 ---
 layout: post
-title: [POI2005]SZA-Template
+title: test23333
 date: 2018-11-07 17:20:04 +0800
 categories: training
 tags: KMP 字符串
