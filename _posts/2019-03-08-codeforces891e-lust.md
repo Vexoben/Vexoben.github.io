@@ -7,7 +7,7 @@ tags: 生成函数 组合数学
 img: https://vexoben.github.io/assets/images/Blog2/2019-03-08-codeforces891e-lust.png
 ---
 
-题目链接:[CF891E Lust][1]
+题目链接:[CF891E Lust][100]
 
 又被神仙题D没了
 
@@ -128,4 +128,4 @@ int main() {
 }
 ```
 
-[1] : http://codeforces.com/problemset/problem/891/E
+[100] : http://codeforces.com/problemset/problem/891/E
