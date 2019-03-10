@@ -45,7 +45,11 @@ $$ \frac{1}{n^k} \sum_{\sum b_i = k} \frac{(\prod_{i=1}^{n} a_i - \prod_{i=1}^{n
 
 $$ \prod_{i=1}^n a_i - (\frac{k!}{n^k}\sum_{\sum b_i = k}\frac{\prod_{i=1}^n (a_i - b_i) }{\prod_{i=1}^n b_i!}) ​$$
 
-这步之后用生成函数进行优化,设 $$f(x) = \sum_{\sum b_i = k}\frac{\prod_{i=1}^n (a_i - b_i) }{\prod_{i=1}^n b_i!}$$,那么它的生成函数就是:
+这步之后用生成函数进行优化,设
+
+$$f(x) = \sum_{\sum b_i = k}\frac{\prod_{i=1}^n (a_i - b_i) }{\prod_{i=1}^n b_i!}$$
+
+那么它的生成函数就是:
 
 $$ F(x) = \prod_{i=1}^{n} (\sum_{j=1}^n (a_i - j) \frac{x^j}{j!}) $$
 
