@@ -128,4 +128,4 @@ int main() {
 }
 ```
 
-[100] : http://codeforces.com/problemset/problem/891/E
+[100]: http://codeforces.com/problemset/problem/891/E
